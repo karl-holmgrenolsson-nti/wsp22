@@ -4,12 +4,16 @@ html lang="en"
         meta charset="UTF-8"/
         meta http-equiv="X-UA-Compatible" content="IE=edge"/
         meta name="viewport" content="width=device-width, initial-scale=1.0"/
+        link rel="stylesheet" href="/css/style.css"/
         title Document
     body 
+        nav.nav
+            a href="/login" Login 
+            a href="/signup" Register 
+            a href="/products" Drinks 
+            - print(user_is_admin())
+            - if user_is_admin()
+                a href="/products/new" Create a drink 
+                a href="/orders" View orders
 
-    nav 
-        a href="" Register 
-        a href="" Drinks 
-        a href="" Order 
-
-    ==yield
+        ==yield

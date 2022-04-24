@@ -1,0 +1,8 @@
+h3 All drinks
+- products.each do |product|
+    div.drink
+        span #{product['name']}
+        span #{product['price']} kr
+        form action="/orders" method="post" 
+            input type="hidden" name="product_id" value="#{product['id']}"/
+            input type="submit" value="Order"/

@@ -1,0 +1,47 @@
+
+- is_admin = user_is_admin()
+
+section 
+    h3 My orders 
+    - my_orders.each do |order|
+        div 
+            span Customer: #{order["username"]}
+            br
+            span Drink: #{order["drink_name"]}
+            br
+            span Price: #{order["drink_price"]} kr
+            - if is_admin
+                form action="/orders/#{order['id']}/complete" method="post" 
+                    input type="submit" value="Complete"/
+        br
+
+- if is_admin
+    section 
+        h3 All active orders 
+        - if all_orders.length === 0
+            span Empty
+        - all_orders.each do |order|
+            div 
+                span Customer: #{order["username"]}
+                br
+                span Drink: #{order["drink_name"]}
+                br
+                span Price: #{order["drink_price"]} kr
+                - if user_is_admin()
+                    form action="/orders/#{order['id']}/complete" method="post" 
+                        input type="submit" value="Complete"/
+            br
+
+
+    section 
+        h3 All complete orders
+        - if all_complete_orders.length === 0
+            span Empty
+        - all_complete_orders.each do |order|
+            div 
+                span Customer: #{order["username"]}
+                br
+                span Drink: #{order["drink_name"]}
+                br
+                span Price: #{order["drink_price"]} kr
+            br
