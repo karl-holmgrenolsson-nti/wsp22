@@ -6,6 +6,19 @@ require "bcrypt"
 
 enable :sessions
 
+public_routes = [
+  "/login",
+  "/signup",
+  "/customers",
+  "/"
+]
+
+before do
+  if !(public_routes.include? request.path_info) && !session[:user_id]
+    redirect("/login")
+  end
+end
+
 def connect_to_db()
   db = SQLite3::Database.new("db/database.db")
   db.results_as_hash = true
@@ -163,7 +176,7 @@ post("/orders") do
   customer_id = session[:user_id]
 
   db = connect_to_db()
-  db.execute("INSERT INTO orders (product_id, customer_id) VALUES (?, ?)", 1, 2)
+  db.execute("INSERT INTO orders (product_id, customer_id) VALUES (?, ?)", product_id, customer_id)
 
   redirect("/orders")
 end
